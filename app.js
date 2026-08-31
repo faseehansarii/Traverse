@@ -106,7 +106,7 @@ app.use((err,req,res,next)=>{
 })
 
 const port = process.env.PORT || 3000;
-app.listen(8080,()=>{
-    console.log(`Server Running on port ${port}...`);
-})
+app.listen(port, "0.0.0.0", () => {
+    console.log(`Server running on port ${port}`);
+});
 
