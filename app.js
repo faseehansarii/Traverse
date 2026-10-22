@@ -2,7 +2,7 @@ if(process.env.NODE_ENV !="production"){
     require('dotenv').config();
 }
 
-const express = require("express"); 
+const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
@@ -35,10 +35,10 @@ async function main() {
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: true }));  
-app.use(methodOverride("_method")); 
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname,"/public")));
-app.engine("ejs",ejsMate);       
+app.engine("ejs",ejsMate);
 
 
 const store = MongoStore.create({
@@ -49,9 +49,9 @@ const store = MongoStore.create({
     touchAfter: 24*3600,
 });
 
-store.on("error",()=>{
-    console.log("Error in Mongo Session Store",err);
-})
+store.on("error", (err) => {
+    console.log("Error in Mongo Session Store", err);
+});
 
 const sessionOptions = {
     store: store,
@@ -106,11 +106,14 @@ app.all("/*splat",(req,res,next) => {
 app.use((err,req,res,next)=>{
     let {statusCode=500, message="Something went wrong!"} = err;
     res.status(statusCode).render("listings/error.ejs",{message});
-    
+
 })
 
 const port = process.env.PORT || 3000;
-app.listen(port, "0.0.0.0", () => {
-    console.log(`Server running on port ${port}`);
-});
+if (require.main === module) {
+    app.listen(port, "0.0.0.0", () => {
+        console.log(`Server running on port ${port}`);
+    });
+}
 
+module.exports = app;
