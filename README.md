@@ -3,7 +3,7 @@
 An Airbnb-style listings platform. You can sign up, list your own place, and leave reviews on places you've stayed. Everything from auth to the database schema to the deployment.
 
 ## Live Demo
-https://traverse-homes.up.railway.app/
+https://traverse-homes.vercel.app/
 
 ## Core Features
 - Session-based authentication with Passport.js (local strategy), passwords hashed and salted via `passport-local-mongoose`
